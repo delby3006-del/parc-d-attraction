@@ -1,0 +1,26 @@
+:root {
+    --titre-font: "Cinzel Decorative", Arial, sans-serif;
+    --sous-titre-font: "Bebas Neue", Arial, sans-serif;
+    --main-font: "Lato", Arial, sans-serif;
+
+    --Bronze-steampunk: #a9713c;
+    --Bleu-nuit-magique: #0e1a2b;
+    --Vert-émeraude-féerique: #0b6e4f;
+    --Or-Aetherion: #d8a944;
+    --Violet-nexus: #441a67;
+    margin: 0;
+}
+body {
+    font-family: var(--main-font);
+    background-color: var(--Bleu-nuit-magique);
+    color: antiquewhite;
+}
+h1,
+h2 {
+    font-family: var(--titre-font);
+    color: var(--Or-Aetherion);
+}
+h3,h4{
+    font-family: var(--sous-titre-font);
+    font-weight: normal;
+}
