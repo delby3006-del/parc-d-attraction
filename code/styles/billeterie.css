@@ -1,95 +1,150 @@
+main {
+    padding: 50px;
+    max-width: 1240px;
+    width: 100%;
+    margin: auto;
+}
+
 .billet-pass-section {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, auto);
-  gap: 16px;
-  padding: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
+    display: flex;
+    justify-content: center;
+    gap: 150px;
+    margin-bottom: 50px;
 }
 
 .billet-pass-section h2 {
-  grid-column: span 2 / span 2;
-  font-size: 3rem;
-  margin: 0;
-  font-weight: 900;
+    font-size: 3rem;
+    margin: 0;
+    font-weight: 900;
 }
 
 .billet-pass-section h3 {
-  font-size: 2rem;
-  margin: 0;
-  font-family: var(--main-font);
-  margin-bottom: 38px;
-  font-weight: 700;
+    font-size: 2rem;
+    margin: 0;
+    font-family: var(--main-font);
+    margin-bottom: 38px;
+    font-weight: 700;
 }
 
 .pass,
 .billet {
-  grid-row-start: 2;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 350px;
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 350px;
+    h3 span {
+        color: #ffd699;
+    }
 }
 
 .billet-description,
 .pass-description {
-  flex: 1;
-  font-size: 1rem;
-  align-self: flex-start;
-  padding-left: 20px;
-  line-height: 1.4;
-  img {
-    height: 23px;
-    margin-right: 4px;
-  }
+    flex: 1;
+    font-size: 1rem;
+    align-self: flex-start;
+    padding-left: 10px;
+    line-height: 1.4;
+    img {
+        height: 23px;
+        margin-right: 0px;
+    }
 }
 
 .billet {
-  background-color: var(--Vert-émeraude-féerique);
-  border-radius: 22px;
-  border: 1px solid var(--Vert-émeraude-féerique);
-  -webkit-box-shadow: 4px 4px 20px -4px rgba(11, 110, 79, 1);
-  -moz-box-shadow: 4px 4px 20px -4px rgba(11, 110, 79, 1);
-  box-shadow: 4px 4px 20px -4px rgba(11, 110, 79, 1);
-  animation: test 5s linear infinite alternate;
+    /*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=0c4d3a&c2=0c513c00&gt=r&gd=dcc
+*/
+    background: #0c4d3a;
+    background: radial-gradient(at center, #0c4d3a, #0c513c00);
+    border-radius: 22px;
+    border: 1px solid var(--Vert-émeraude-féerique);
+    animation: glow-billet 5s ease-in-out infinite alternate;
 }
 
-@keyframes test {
-  from {
-    -webkit-box-shadow: 4px 4px 20px -4px rgba(11, 110, 79, 1);
-    -moz-box-shadow: 4px 4px 20px -4px rgba(11, 110, 79, 1);
-    box-shadow: 4px 4px 20px -4px rgba(11, 110, 79, 1);
-  }
-  to {
-    -webkit-box-shadow: 8px 8px 24px 0px rgba(11, 110, 79, 1);
-    -moz-box-shadow: 8px 8px 24px 0px rgba(11, 110, 79, 1);
-    box-shadow: 8px 8px 24px 0px rgba(11, 110, 79, 1);
-  }
+@keyframes glow-billet {
+    from {
+        -webkit-box-shadow: 0px 0px 10px 3px rgba(11, 110, 79, 1);
+        -moz-box-shadow: 0px 0px 10px 3px rgba(11, 110, 79, 1);
+        box-shadow: 0px 0px 10px 3px rgba(11, 110, 79, 1);
+    }
+    to {
+        -webkit-box-shadow: 8px 8px 101px 0px rgba(11, 110, 79, 1);
+        -moz-box-shadow: 8px 8px 101px 0px rgba(11, 110, 79, 1);
+        box-shadow: 8px 8px 101px 0px rgba(11, 110, 79, 1);
+    }
 }
 
+@keyframes glow-pass {
+    from {
+        box-shadow: 0px 0px 10px 3px rgba(95, 35, 143, 0.7);
+        -webkit-box-shadow: 0px 0px 10px 3px rgba(95, 35, 143, 0.7);
+        -moz-box-shadow: 0px 0px 10px 3px rgba(95, 35, 143, 0.7);
+    }
+    to {
+        box-shadow: 0px 0px 101px 3px rgba(95, 35, 143, 0.7);
+        -webkit-box-shadow: 0px 0px 101px 3px rgba(95, 35, 143, 0.7);
+        -moz-box-shadow: 0px 0px 101px 3px rgba(95, 35, 143, 0.7);
+    }
+}
 article button {
-  border: none;
-  font-family: var(--titre-font);
-  font-weight: 700;
-  background-color: var(--Or-Aetherion);
-  font-size: 1.375rem;
-  color: var(--Bleu-nuit-magique);
-  border-radius: 22px;
-  width: 100%;
-  height: 72px;
-  margin-top: 30px;
+    border: none;
+    font-family: var(--titre-font);
+    font-weight: 700;
+    background-color: var(--Or-Aetherion);
+    font-size: 1.375rem;
+    color: var(--Bleu-nuit-magique);
+    border-radius: 22px;
+    width: 100%;
+    height: 72px;
+    margin-top: 30px;
 }
 
 .pass {
-  background-color: var(--Violet-nexus);
-  border-radius: 22px;
-  border: 1px solid var(--Violet-nexus);
+    background: #5f238f;
+    background: radial-gradient(at center, #5e238f00, #5f238f);
+    border-radius: 22px;
+    border: 2px solid var(--Or-Aetherion);
+    animation: glow-pass 5s ease-in-out infinite alternate;
+    button {
+        background-color: var(--Violet-nexus);
+        color: var(--Or-Aetherion);
+    }
 }
 
 table {
+    margin: auto;
+    min-width: 70%;
+    color: black;
+    text-align: center;
+    border-spacing: 7px;
 }
 
 thead {
-  background-color: var(--Or-Aetherion);
-  text-transform: capitalize;
+    text-transform: capitalize;
+    font-family: var(--titre-font);
+    color: black;
+}
+th[scope="row"] {
+    color: var(--Violet-nexus);
+    background-color: #ffebcd;
+}
+th[scope="col"] {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    color: var(--Vert-émeraude-féerique);
+    background-color: #ffd699;
+}
+th {
+    font-family: var(--titre-font);
+}
+
+td {
+    padding: 15px;
+    background-color: #fff4e3;
+    font-size: 0.625rem;
 }
