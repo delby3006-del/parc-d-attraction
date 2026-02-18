@@ -1,8 +1,12 @@
+body {
+    background: linear-gradient(to bottom, #0e1a2b, #0e112b);
+}
 main {
     padding: 50px;
     max-width: 1240px;
     width: 100%;
     margin: auto;
+    box-sizing: border-box;
 }
 
 .billet-pass-section {
@@ -147,4 +151,109 @@ td {
     padding: 15px;
     background-color: #fff4e3;
     font-size: 0.625rem;
+}
+
+/*********************Formulaire*********************/
+.progress-bar {
+    width: 100%;
+    background-color: #f3f3f3;
+    border-radius: 25px;
+    padding: 2px;
+
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.progress {
+    height: 25px;
+    border-radius: 25px;
+
+    background-color: var(--Or-Aetherion);
+    width: 0;
+    transition: width 0.4s ease;
+}
+.modal-container{
+    display: flex;
+    overflow: hidden;
+}
+.modal {
+    width: 100%;
+    padding: 25px 50px;
+    border-radius: 25px;
+    background: linear-gradient(to bottom, #0e1a2b, #172942);
+}
+.modal h1 {
+    font-family: "Cinzel Decorative", Arial, sans-serif;
+    margin: 0;
+}
+
+form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    padding: 30px 20px;
+    border-top: 3px white solid;
+}
+
+.recapitulatif {
+    padding: 10px 25px;
+    width: max-content;
+    border-radius: 25px;
+    border: var(--Vert-émeraude-féerique) 2px solid;
+    background: linear-gradient(to bottom, #0e1a2b, #172942);
+    height: fit-content;
+}
+
+.recap-data {
+    font-family: var(--sous-titre-font);
+}
+fieldset {
+    border: none;
+}
+fieldset div {
+    padding: 25px 10px;
+}
+fieldset div:nth-child(1) {
+    border-top: none;
+}
+
+label {
+    font-family: var(--sous-titre-font);
+    font-size: 32px;
+}
+
+input,
+select {
+    padding: 12px 16px;
+    background-color: white;
+    font-family: var(--main-font);
+    border: none;
+    border-radius: 8px;
+    margin-left: 10px;
+    width: stretch;
+}
+
+input::placeholder {
+    font-weight: bold;
+    opacity: 0.5;
+    color: gray;
+}
+optgroup {
+    font-family: var(--sous-titre-font);
+    font-size: 22px;
+}
+option {
+    font-size: 1rem;
+}
+
+button {
+    background-color: var(--Vert-émeraude-féerique);
+    border: 2px solid var(--Or-Aetherion);
+    font: var(--titre-font) white 36px;
+    font-size: 36px;
+    font-family: var(--main-font);
+    color: white;
+    width: 100%;
+    border-radius: 25px;
+    padding: 5px;
+    font-family: inherit;
 }
