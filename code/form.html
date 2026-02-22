@@ -7,7 +7,6 @@
 
     <link rel="stylesheet" href="./styles/style.css" />
     <link rel="stylesheet" href="./styles/billeterie.css" />
-    <script src="./scripts/form_article.js"></script>
   </head>
   <body>
     <header>
@@ -26,35 +25,36 @@
             <h1>Choix du voyage</h1>
             <form>
               <fieldset>
-                <div class="type-article">
-                  <label for="type-article">Type du billet</label>
-                  <select id="type-article">
+                <div class="type-offres">
+                  <label for="type-offres">Type du billet</label>
+                  <select id="type-offres">
+                    <option value="non-selectioner"></option>
                     <optgroup label="Billets">
                       <option value="1day">1 Jours</option>
-                      <option value="2day">1 Jours</option>
-                      <option value="3day">1 Jours</option>
+                      <option value="2day">2 Jours</option>
+                      <option value="3day">3 Jours</option>
                     </optgroup>
                     <optgroup label="Pass">
-                      <option value="test1">test2</option>
-                      <option value="test2">test21</option>
+                      <option value="aventurier">aventurier</option>
+                      <option value="alchimiste">alchimiste</option>
                     </optgroup>
                   </select>
                 </div>
-                <div class="nombre-article">
-                  <label for="nombre-article">Nombre de billet</label>
-                  <select id="nombre-article">
-                    <option value="1day">1 Jours</option>
-                    <option value="2day">1 Jours</option>
-                    <option value="3day">1 Jours</option>
-                    <option value="test1">test2</option>
-                    <option value="test2">test21</option>
-                  </select>
+                <div class="nombre-offres">
+                  <label for="nombre-offres">Nombre de billet</label>
+                  <input
+                    type="number"
+                    name="nombre-offres"
+                    id="nombre-offres"
+                  />
                 </div>
                 <div class="date">
                   <label for="date">date de Visite</label>
                   <input type="date" name="date" id="date" />
                 </div>
-                <button type="submit" disabled>Continuer</button>
+                <button type="submit" disabled id="suivant-offres">
+                  Continuer
+                </button>
               </fieldset>
               <div class="recapitulatif">
                 <h2>Recapitulatif</h2>
@@ -69,7 +69,7 @@
               </div>
             </form>
           </div>
-          <div class="modal invisble extra">
+          <div class="modal extra">
             <h1>Artefacts & Bonus</h1>
             <form>
               <fieldset>
@@ -98,7 +98,9 @@
                   <label for="parking">Parking</label>
                   <p>Payer vorte place de parking à l'avance. Prix :</p>
                 </div>
-                <button type="submit" disabled>Continuer</button>
+                <button type="submit" disabled id="suivant-extras">
+                  Continuer
+                </button>
               </fieldset>
               <div class="recapitulatif">
                 <h2>Recapitulatif</h2>
@@ -113,7 +115,7 @@
               </div>
             </form>
           </div>
-          <div class="modal invisble acheteur">
+          <div class="modal acheteur">
             <h1>Identité de l’aclhimistes (Acheteur)</h1>
             <form>
               <fieldset>
@@ -159,7 +161,9 @@
                     tard.</label
                   >
                 </div>
-                <button type="submit" disabled>Continuer</button>
+                <button type="submit" disabled id="suivant-acheteur">
+                  Continuer
+                </button>
               </fieldset>
               <div class="recapitulatif">
                 <h2>Recapitulatif</h2>
@@ -174,17 +178,17 @@
               </div>
             </form>
           </div>
-          <div class="modal invisble visiteur">
+          <div class="modal visiteur">
             <h1>Identité des Voyageurs</h1>
             <form>
               <fieldset>
-                <div class="checkbox non-titré">
+                <div class="checkbox">
                   <input
                     type="checkbox"
-                    name="creer-compte"
-                    id="creer-compte"
+                    name="attribution-offres"
+                    id="attribution-offres"
                   />
-                  <label for="attribution-articles"
+                  <label for="attribution-offres"
                     >attribution des billets</label
                   >
                 </div>
@@ -192,16 +196,26 @@
                   <h2>Bilet/Pass n°1</h2>
                   <div class="groupe-input">
                     <div class="input-label">
-                      <label for="article">Nom</label>
-                      <input type="text" name="nom" id="nom" />
+                      <label for="nom-visiteur-1">Nom</label>
+                      <input
+                        type="text"
+                        name="nom-visiteur-1"
+                        id="nom-visiteur-1"
+                      />
                     </div>
                     <div class="input-label">
-                      <label for="prenom">prenom</label>
-                      <input type="text" name="prenom" id="prenom" />
+                      <label for="prenom-visiteur-1">prenom</label>
+                      <input
+                        type="text"
+                        name="prenom-visiteur-1"
+                        id="prenom-visiteur-1"
+                      />
                     </div>
                   </div>
                 </article>
-                <button type="submit" disabled>Continuer</button>
+                <button type="submit" disabled id="suivant-visiteur">
+                  Continuer
+                </button>
               </fieldset>
               <div class="recapitulatif">
                 <h2>Recapitulatif</h2>
@@ -216,7 +230,7 @@
               </div>
             </form>
           </div>
-          <div class="modal invisble reacp">
+          <div class="modal reacp">
             <h1>Récapitulatif de la commande</h1>
             <form>
               <fieldset>
@@ -245,20 +259,22 @@
                     </div>
                   </div>
                 </div>
-                <div class="checkbox non-titré">
+                <div class="checkbox">
                   <label for="cgu">
                     J'accepte les conditions générales de vente du
                     Royaume</label
                   >
                   <input type="checkbox" name="cgu" id="cgu" />
                 </div>
-                <div class="checkbox non-titré">
+                <div class="checkbox">
                   <label for="newsletter">
                     Je souhaite recevoir les nouvelles par corbeau voyageur
                   </label>
                   <input type="checkbox" name="newsletter" id="newsletter" />
                 </div>
-                <button type="submit" disabled>Continuer</button>
+                <button type="submit" disabled id="valider">
+                  Valider la commande
+                </button>
               </fieldset>
               <div class="recapitulatif">
                 <h2>Recapitulatif</h2>
@@ -276,5 +292,6 @@
         </div>
       </section>
     </main>
+    <script src="./scripts/form_article.js"></script>
   </body>
 </html>
