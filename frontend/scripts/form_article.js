@@ -1,40 +1,48 @@
-document.addEventListener("DOMContentLoaded", () => {
-	const slider = document.querySelector(".slider");
-	const modals = document.querySelectorAll(".modal");
-	const progressBar = document.querySelector(".progress");
-	let currentStep = 0;
-	const totalSteps = modals.length + 1;
+import { getData } from "./fonction.js";
 
-	function goToStep(step) {
-		if (step < 0 || step >= totalSteps) return;
-		currentStep = step;
+// ══════════════════════════════════════════════
+// Helpers
+// ══════════════════════════════════════════════
 
-		// Déplace le slider
-		slider.style.transform = `translateX(-${currentStep * 100}%)`;
+const $ = (id) => document.getElementById(id);
 
-		// Met à jour la barre de progression
-		const percent = ((currentStep + 1) / totalSteps) * 100;
-		progressBar.style.width = `${percent}%`;
-	}
+function lierEntree(id, parent, cle, fonctionValidation) {
+	const el = $(id);
+	if (!el) return;
+	const evenement = el.type === "checkbox" ? "change" : "input";
+	const propriete = el.type === "checkbox" ? "checked" : "value";
 
-	// Écoute tous les boutons "Continuer"
-	const buttons = document.querySelectorAll("form button");
-	buttons.forEach((btn, index) => {
-		// Active les boutons (retire disabled pour tester)
-
-		btn.addEventListener("click", (e) => {
-			e.preventDefault(); // ← empêche le rechargement de la page
-			goToStep(currentStep + 1);
-		});
+	el.addEventListener(evenement, (e) => {
+		parent[cle] = e.target[propriete];
+		if (fonctionValidation) fonctionValidation();
 	});
-
-	// Initialise à l'étape 0
-	goToStep(0);
-});
+}
 
 // ══════════════════════════════════════════════
-// État global de la commande
+// Navigation (slider + barre de progression)
 // ══════════════════════════════════════════════
+
+const slider = document.querySelector(".slider");
+const modales = document.querySelectorAll(".modal");
+const barreProgression = document.querySelector(".progress");
+let etapeActuelle = 0;
+const totalEtapes = modales.length;
+
+function allerEtape(etape) {
+	if (etape < 0 || etape >= totalEtapes) return;
+	etapeActuelle = etape;
+	slider.style.transform = `translateX(-${etapeActuelle * 100}%)`;
+	const pourcentage = ((etapeActuelle + 1) / totalEtapes) * 100;
+	barreProgression.style.width = `${pourcentage}%`;
+}
+
+function allerModale(nomClasse) {
+	modales.forEach((modale, i) => {
+		if (modale.classList.contains(nomClasse)) allerEtape(i);
+	});
+}
+
+allerEtape(0);
 
 // ══════════════════════════════════════════════
 // État global de la commande
@@ -46,13 +54,11 @@ const commande = {
 		nombreOffres: "",
 		date: "",
 	},
-
 	extras: {
-		fastpass: false,
-		visiteGuide: false,
-		parking: false,
+		fastpass: { etat: false, prix: 125 },
+		visiteGuidee: { etat: false, prix: 245 },
+		parking: { etat: false, prix: 21 },
 	},
-
 	acheteur: {
 		nom: "",
 		prenom: "",
@@ -62,12 +68,10 @@ const commande = {
 		adresse: "",
 		creerCompte: false,
 	},
-
 	visiteurs: {
 		attributionOffres: false,
 		billets: [{ nom: "", prenom: "" }],
 	},
-
 	paiement: {
 		codePromo: "",
 		numeroCarte: "",
@@ -78,68 +82,60 @@ const commande = {
 	},
 };
 
+const type_offre = await init();
+
+async function init() {
+	let data = await getData("http://localhost:81/api/billeterie");
+	console.log(data);
+	data.forEach((d) => {
+		delete d.commandes;
+	});
+	data = data.filter(({ actif }) => actif === 1);
+	return data;
+}
+
 // ══════════════════════════════════════════════
 // Boutons
 // ══════════════════════════════════════════════
 
-const btnSuivantOffres = document.querySelector("#suivant-offres");
-const btnSuivantExtras = document.querySelector("#suivant-extras");
-const btnSuivantAcheteur = document.querySelector("#suivant-acheteur");
-const btnSuivantVisiteur = document.querySelector("#suivant-visiteur");
-const btnValider = document.querySelector("#valider");
+const btnSuivantOffres = $("suivant-offres");
+const btnSuivantExtras = $("suivant-extras");
+const btnSuivantAcheteur = $("suivant-acheteur");
+const btnSuivantVisiteur = $("suivant-visiteur");
+const btnValider = $("valider-paiement");
 
 // ══════════════════════════════════════════════
 // Étape 1 : Offres
 // ══════════════════════════════════════════════
 
-const typeOffres = document.querySelector("#type-offres");
-const nombreOffres = document.querySelector("#nombre-offres");
-const dateVisite = document.querySelector("#date");
-
-typeOffres.addEventListener("change", (e) => {
-	commande.offres.typeOffres = e.target.value;
-	console.log("Type offre →", commande.offres.typeOffres);
-	validerOffres();
-});
-
-nombreOffres.addEventListener("input", (e) => {
-	commande.offres.nombreOffres = e.target.value;
-	console.log("Nombre offres →", commande.offres.nombreOffres);
-	validerOffres();
-});
-
-dateVisite.addEventListener("change", (e) => {
-	commande.offres.date = e.target.value;
-	console.log("Date →", commande.offres.date);
-	validerOffres();
-});
+lierEntree("type-offres", commande.offres, "typeOffres", validerOffres);
+lierEntree("nombre-offres", commande.offres, "nombreOffres", validerOffres);
+lierEntree("date", commande.offres, "date", validerOffres);
 
 btnSuivantOffres.addEventListener("click", (e) => {
 	e.preventDefault();
-	console.log("→ Validation offres", commande.offres);
-	if (!validerOffres) goToStep(2);
+	if (!validerOffres()) allerEtape(1);
 });
 
 function validerOffres() {
-	actualisationRecap();
+	actualiserRecap();
 
-	if (
-		commande.offres.nombreOffres === "" ||
-		commande.offres.date === "" ||
-		commande.offres.typeOffres === ""
-	) {
+	const { typeOffres, nombreOffres, date } = commande.offres;
+
+	if (!typeOffres || !nombreOffres || !date) {
 		btnSuivantOffres.disabled = true;
 		return true;
 	}
 
-	if (commande.offres.nombreOffres < 0) {
-		throw new Error("Nombres de tickets invalide");
+	if (nombreOffres < 1) {
+		btnSuivantOffres.disabled = true;
+		return true;
 	}
-	const d = new Date(Date.now());
-	const date = d.toISOString();
 
-	if (commande.offres.date < date.split("T")[0]) {
-		throw new Error("Date invalide");
+	const aujourdhui = new Date().toISOString().split("T")[0];
+	if (date < aujourdhui) {
+		btnSuivantOffres.disabled = true;
+		return true;
 	}
 
 	btnSuivantOffres.disabled = false;
@@ -150,304 +146,234 @@ function validerOffres() {
 // Étape 2 : Extras
 // ══════════════════════════════════════════════
 
-const fastpass = document.querySelector("#fastpass");
-const visiteGuide = document.querySelector("#visite-guide");
-const parking = document.querySelector("#parking");
-
-fastpass.addEventListener("change", (e) => {
-	commande.extras.fastpass = e.target.checked;
-	console.log("Fastpass →", commande.extras.fastpass);
-	validerExtras();
-});
-
-visiteGuide.addEventListener("change", (e) => {
-	commande.extras.visiteGuide = e.target.checked;
-	console.log("Visite guidée →", commande.extras.visiteGuide);
-	validerExtras();
-});
-
-parking.addEventListener("change", (e) => {
-	commande.extras.parking = e.target.checked;
-	console.log("Parking →", commande.extras.parking);
-	validerExtras();
-});
+lierEntree("fastpass", commande.extras.fastpass, "etat", validerExtras);
+lierEntree("visite-guide", commande.extras.visiteGuidee, "etat", validerExtras);
+lierEntree("parking", commande.extras.parking, "etat", validerExtras);
 
 btnSuivantExtras.addEventListener("click", (e) => {
 	e.preventDefault();
-	console.log("→ Validation extras", commande.extras);
-	goToStep(3);
+	allerEtape(2);
 });
 
 function validerExtras() {
-	actualisationRecap();
+	actualiserRecap();
 	btnSuivantExtras.disabled = false;
 }
 
-// ══════════════════════════════════════════════
-// Étape 3 : Acheteur
-// ══════════════════════════════════════════════
+// // ══════════════════════════════════════════════
+// // Étape 3 : Acheteur
+// // ══════════════════════════════════════════════
 
-const nom = document.querySelector("#nom");
-const prenom = document.querySelector("#prenom");
-const email = document.querySelector("#email");
-const emailConfirm = document.querySelector("#email-comfirm");
-const telephone = document.querySelector("#telephone");
-const adresse = document.querySelector("#adresse");
-const creerCompte = document.querySelector("#creer-compte");
+// lierEntree("nom", commande.acheteur, "nom", validerAcheteur);
+// lierEntree("prenom", commande.acheteur, "prenom", validerAcheteur);
+// lierEntree("email", commande.acheteur, "email", validerAcheteur);
+// lierEntree("email-confirm", commande.acheteur, "emailConfirm", validerAcheteur);
+// lierEntree("telephone", commande.acheteur, "telephone", validerAcheteur);
+// lierEntree("adresse", commande.acheteur, "adresse", validerAcheteur);
+// lierEntree("creer-compte", commande.acheteur, "creerCompte");
 
-nom.addEventListener("input", (e) => {
-	commande.acheteur.nom = e.target.value;
-	console.log("Nom →", commande.acheteur.nom);
-	validerAcheteur();
-});
+// btnSuivantAcheteur.addEventListener("click", (e) => {
+// 	e.preventDefault();
+// 	if (!validerAcheteur()) allerEtape(3);
+// });
 
-prenom.addEventListener("input", (e) => {
-	commande.acheteur.prenom = e.target.value;
-	console.log("Prénom →", commande.acheteur.prenom);
-	validerAcheteur();
-});
+// function validerAcheteur() {
+// 	actualiserRecap();
 
-email.addEventListener("input", (e) => {
-	commande.acheteur.email = e.target.value;
-	console.log("Email →", commande.acheteur.email);
-	validerAcheteur();
-});
+// 	const { nom, prenom, email, emailConfirm, telephone, adresse } = commande.acheteur;
+// 	const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-emailConfirm.addEventListener("input", (e) => {
-	commande.acheteur.emailConfirm = e.target.value;
-	console.log("Email confirm →", commande.acheteur.emailConfirm);
-	validerAcheteur();
-});
+// 	if (!nom || !prenom || !email || !emailConfirm || !telephone || !adresse) {
+// 		btnSuivantAcheteur.disabled = true;
+// 		return true;
+// 	}
 
-telephone.addEventListener("input", (e) => {
-	commande.acheteur.telephone = e.target.value;
-	console.log("Téléphone →", commande.acheteur.telephone);
-	validerAcheteur();
-});
+// 	if (email !== emailConfirm) {
+// 		btnSuivantAcheteur.disabled = true;
+// 		return true;
+// 	}
 
-adresse.addEventListener("input", (e) => {
-	commande.acheteur.adresse = e.target.value;
-	console.log("Adresse →", commande.acheteur.adresse);
-	validerAcheteur();
-});
+// 	if (!regexEmail.test(email)) {
+// 		btnSuivantAcheteur.disabled = true;
+// 		return true;
+// 	}
 
-creerCompte.addEventListener("change", (e) => {
-	commande.acheteur.creerCompte = e.target.checked;
-	console.log("Créer compte →", commande.acheteur.creerCompte);
-});
+// 	if (telephone.length !== 8) {
+// 		btnSuivantAcheteur.disabled = true;
+// 		return true;
+// 	}
 
-btnSuivantAcheteur.addEventListener("click", (e) => {
-	e.preventDefault();
-	console.log("→ Validation acheteur", commande.acheteur);
-	if (!validerAcheteur) {
-		goToStep(3);
-	}
-});
+// 	btnSuivantAcheteur.disabled = false;
+// 	return false;
+// }
 
-function validerAcheteur() {
-	actualisationRecap();
-	const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-	if (
-		commande.acheteur.nom === "" &&
-		commande.acheteur.prenom === "" &&
-		commande.acheteur.email === "" &&
-		commande.acheteur.emailConfirm === "" &&
-		commande.acheteur.telephone === "" &&
-		commande.acheteur.adresse === ""
-	) {
-		btnSuivantAcheteur.disabled = true;
-		return true;
-	}
+// // ══════════════════════════════════════════════
+// // Étape 4 : Visiteurs
+// // ══════════════════════════════════════════════
 
-	if (commande.acheteur.email !== commande.acheteur.emailConfirm) {
-		throw new Error("Emails non identique");
-	}
-	if (!emailRegex.test(commande.acheteur.email)) {
-		throw new Error("Email incorrect");
-	}
+// lierEntree("attribution-offres", commande.visiteurs, "attributionOffres", validerVisiteur);
+// lierEntree("nom-visiteur-1", commande.visiteurs.billets[0], "nom", validerVisiteur);
+// lierEntree("prenom-visiteur-1", commande.visiteurs.billets[0], "prenom", validerVisiteur);
 
-	if (commande.acheteur.telephone.length !== 8) {
-		throw new Error("Numero de telephone incorrect");
-	}
+// btnSuivantVisiteur.addEventListener("click", (e) => {
+// 	e.preventDefault();
+// 	if (!validerVisiteur()) allerEtape(4);
+// });
 
-	btnSuivantAcheteur.disabled = false;
-	return false;
-}
+// function validerVisiteur() {
+// 	actualiserRecap();
+// 	btnSuivantVisiteur.disabled = false;
+// 	return false;
+// }
 
-// ══════════════════════════════════════════════
-// Étape 4 : Voyageurs
-// ══════════════════════════════════════════════
-
-const attributionOffres = document.querySelector("#attribution-offres");
-const nomVisiteur1 = document.querySelector("#nom-visiteur-1");
-const prenomVisiteur1 = document.querySelector("#prenom-visiteur-1");
-
-attributionOffres.addEventListener("change", (e) => {
-	commande.visiteurs.attributionOffres = e.target.checked;
-	console.log("Attribution →", commande.visiteurs.attributionOffres);
-	validerVisiteur();
-});
-
-nomVisiteur1.addEventListener("input", (e) => {
-	commande.visiteurs.billets[0].nom = e.target.value;
-	console.log("Nom visiteur 1 →", commande.visiteurs.billets[0].nom);
-	validerVisiteur();
-});
-
-prenomVisiteur1.addEventListener("input", (e) => {
-	commande.visiteurs.billets[0].prenom = e.target.value;
-	console.log("Prénom visiteur 1 →", commande.visiteurs.billets[0].prenom);
-	validerVisiteur();
-});
-
-btnSuivantVisiteur.addEventListener("click", (e) => {
-	e.preventDefault();
-	console.log("→ Validation visiteurs", commande.visiteurs);
-});
-
-function validerVisiteur() {
-	btnSuivantVisiteur.disabled = false;
-}
-
-validerVisiteur();
 // ══════════════════════════════════════════════
 // Étape 5 : Paiement
 // ══════════════════════════════════════════════
 
-const codePromo = document.querySelector("#code-promo");
-const numeroCarte = document.querySelector("#numero-carte");
-const dateCarte = document.querySelector("#date-carte");
-const cvv = document.querySelector("#cvv");
-const cgu = document.querySelector("#cgu");
-const newsletter = document.querySelector("#newsletter");
+lierEntree("code-promo", commande.paiement, "codePromo");
+lierEntree("numero-carte", commande.paiement, "numeroCarte", validerPaiement);
+lierEntree("date-carte", commande.paiement, "dateCarte", validerPaiement);
+lierEntree("cvv", commande.paiement, "cvv", validerPaiement);
+lierEntree("cgu", commande.paiement, "cgu", validerPaiement);
+lierEntree("newsletter", commande.paiement, "newsletter");
 
-codePromo.addEventListener("input", (e) => {
-	commande.paiement.codePromo = e.target.value;
-	console.log("Code promo →", commande.paiement.codePromo);
-});
-
-numeroCarte.addEventListener("input", (e) => {
-	commande.paiement.numeroCarte = e.target.value;
-	console.log("N° carte →", commande.paiement.numeroCarte);
-	validerPaiement();
-});
-
-dateCarte.addEventListener("input", (e) => {
-	commande.paiement.dateCarte = e.target.value;
-	console.log("Date carte →", commande.paiement.dateCarte);
-	validerPaiement();
-});
-
-cvv.addEventListener("input", (e) => {
-	commande.paiement.cvv = e.target.value;
-	console.log("CVV →", commande.paiement.cvv);
-	validerPaiement();
-});
-
-cgu.addEventListener("change", (e) => {
-	commande.paiement.cgu = e.target.checked;
-	console.log("CGU →", commande.paiement.cgu);
-	validerPaiement();
-});
-
-newsletter.addEventListener("change", (e) => {
-	commande.paiement.newsletter = e.target.checked;
-	console.log("Newsletter →", commande.paiement.newsletter);
-	validerPaiement();
-});
-
-btnValider.addEventListener("click", (e) => {
+$("valider").addEventListener("click", (e) => {
 	e.preventDefault();
-	console.log("→ COMMANDE FINALE", commande);
-	validerPaiement();
-	simulerPaiement();
+	if (!validerPaiement()) simulerPaiement();
 });
 
 function validerPaiement() {
-	if (
-		commande.paiement.cgu === false ||
-		commande.paiement.cvv === "" ||
-		commande.paiement.dateCarte === "" ||
-		commande.paiement.numeroCarte === ""
-	) {
+	const { numeroCarte, dateCarte, cvv, cgu } = commande.paiement;
+
+	if (!cgu || !cvv || !dateCarte || !numeroCarte) {
 		btnValider.disabled = true;
 		return true;
 	}
 
-	if (commande.paiement.cvv.length === 3) {
-		throw new Error("CVV incorrect");
+	if (cvv.length !== 3) {
+		btnValider.disabled = true;
+		return true;
 	}
 
-	if (commande.paiement.dateCarte.length === 4) {
-		throw new Error("date de carte incorrect");
+	if (dateCarte.length !== 4) {
+		btnValider.disabled = true;
+		return true;
 	}
 
-	if (commande.paiement.numeroCarte.length === 16) {
-		throw new Error("numeroCarte incorrect");
+	if (numeroCarte.length !== 16) {
+		btnValider.disabled = true;
+		return true;
 	}
+
 	btnValider.disabled = false;
 	return false;
 }
 
 // ══════════════════════════════════════════════
-// Debug : voir l'état complet
+// Récapitulatif
 // ══════════════════════════════════════════════
 
-function afficherCommande() {
+function actualiserRecap() {
+	let prix = [];
+	const extrasActifs = Object.entries(commande.extras)
+		.filter(([, valeur]) => valeur.etat)
+		.map(([cle, valeur]) => {
+			prix.push(valeur.prix * commande.offres.nombreOffres);
+			return `<li>${cle} - Prix : ${valeur.prix * commande.offres.nombreOffres} € </li>`;
+		});
+
+	const contenuRecap = `
+            <span>${commande.offres.nombreOffres} x ${commande.offres.typeOffres} </span>
+            <ul>${extrasActifs.join("")}</ul>
+        `;
+
+	const prixTypeOffres = type_offre.filter((t) => t.nom === commande.offres.typeOffres)[0]
+		.prixUnitaire;
+
+	prix.push(temp * commande.offres.nombreOffres);
+
+	document.querySelectorAll(".recap-data").forEach((el) => {
+		el.innerHTML = contenuRecap;
+	});
+	document.querySelector(".recap-prix").innerHTML =
+		`Total : ${prix.reduce((acc, p) => acc + parseInt(p), 0)}€`;
+}
+
+// ══════════════════════════════════════════════
+// Simulation du paiement
+// ══════════════════════════════════════════════
+
+function simulerPaiement() {
+	allerModale("chargement-paiement");
+
+	setTimeout(() => {
+		const numero = "AET-2025-" + Math.random().toString(36).substring(2, 6).toUpperCase();
+
+		$("numero-commande").textContent = numero;
+		$("recap-date").textContent = commande.offres.date || "--";
+		$("recap-type").textContent = commande.offres.typeOffres || "--";
+		$("recap-nombre").textContent = commande.offres.nombreOffres || "--";
+		$("recap-email").textContent = commande.acheteur.email || "votre email";
+
+		const extrasActifs = Object.entries(commande.extras)
+			.filter(([, v]) => v)
+			.map(([c]) => c);
+		$("recap-extras").textContent = extrasActifs.length ? extrasActifs.join(", ") : "Aucun";
+
+		allerModale("fin");
+	}, 3000);
+}
+
+// ══════════════════════════════════════════════
+// Debug
+// ══════════════════════════════════════════════
+
+window.afficherCommande = () => {
 	console.log("══════ COMMANDE ══════");
 	console.table(commande.offres);
 	console.table(commande.extras);
 	console.table(commande.acheteur);
 	console.table(commande.visiteurs);
 	console.table(commande.paiement);
-}
+};
 
-function actualisationRecap() {
-	const extras = Object.entries(commande.extras).filter((extra) => extra[1] === true);
-	const recapData = `<span>${commande.offres.nombreOffres} X ${commande.offres.typeOffres}</span>
-									<ul>
-									${extras.map((extra) => `<li>${extra[0]}</li>`)}
-									</ul>
-	`;
+function creerSelect() {
+	const billets = type_offre.filter(({ typeOffre }) => typeOffre === "billet");
+	const passs = type_offre.filter(({ typeOffre }) => typeOffre === "abonnement");
 
-	document.querySelectorAll(".recap-data").forEach((e) => {
-		e.innerHTML = recapData;
+	const select = document.querySelector("select#type-offres");
+
+	const optionGroupBillets = document.createElement("optgroup");
+	optionGroupBillets.label = "Billets";
+
+	billets.forEach((billet) => {
+		optionGroupBillets.appendChild(
+			creerOption(billet.nom, billet.dureeJours + " jour(s) - " + billet.prixUnitaire + " € ")
+		);
 	});
-}
+	select.appendChild(optionGroupBillets);
 
-// Simuler le paiement après soumission du formulaire final
-function simulerPaiement() {
-	// 1. Afficher la modal de chargement
-	// (adapter selon votre système de navigation entre modals)
-	allerAModal("chargement-paiement");
+	const optionGroupPass = document.createElement("optgroup");
+	optionGroupPass.label = "Pass";
 
-	// 2. Après 3 secondes, afficher la confirmation
-	setTimeout(() => {
-		// Générer un numéro de commande aléatoire
-		const numeroCommande = "AET-2025-" + Math.random().toString(36).substring(2, 6).toUpperCase();
-		document.getElementById("numero-commande").textContent = numeroCommande;
-
-		// Remplir les détails du récap (à adapter selon vos données)
-		document.getElementById("recap-date").textContent = document.getElementById("date").value || "--";
-		document.getElementById("recap-email").textContent =
-			document.getElementById("email").value || "votre email";
-
-		// Afficher la modal de confirmation
-		allerAModal("fin");
-	}, 3000);
-}
-
-// Fonction helper pour naviguer (à adapter à votre slider)
-function allerAModal(className) {
-	// Exemple : déplacer le slider vers la bonne modal
-	const modals = document.querySelectorAll(".modal");
-	let index = 0;
-	modals.forEach((modal, i) => {
-		if (modal.classList.contains(className)) {
-			index = i;
-		}
+	passs.forEach((pass) => {
+		optionGroupPass.appendChild(
+			creerOption(
+				pass.nom.replaceAll(" ", "_"),
+				pass.dureeMois + " mois - " + pass.prixUnitaire * pass.dureeMois + " € "
+			)
+		);
 	});
-
-	const slider = document.querySelector(".slider");
-	slider.style.transform = `translateX(-${index * 100}%)`;
+	select.appendChild(optionGroupPass);
 }
+
+function creerOption(value, text) {
+	const select = document.querySelector("select#type-offres");
+	const option = document.createElement("option");
+	option.value = value;
+	option.innerHTML = text;
+	select.appendChild(option);
+	return option;
+}
+
+creerSelect();

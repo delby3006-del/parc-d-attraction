@@ -34,15 +34,6 @@
 									<label for="type-offres">Type du billet</label>
 									<select id="type-offres">
 										<option value="non-selectioner"></option>
-										<optgroup label="Billets">
-											<option value="billet_1day">1 Jours</option>
-											<option value="billet_2day">2 Jours</option>
-											<option value="billet_3day">3 Jours</option>
-										</optgroup>
-										<optgroup label="Pass">
-											<option value="pass_aventurier">aventurier</option>
-											<option value="pass_alchimiste">alchimiste</option>
-										</optgroup>
 									</select>
 								</div>
 								<div class="nombre-offres">
@@ -89,7 +80,7 @@
 										name="fastpass"
 										id="fastpass" />
 									<label for="fastpass">FastPass</label>
-									<p>Coupez les files d'attente grâce à la distorsion temporelle Prix : +125€ / pers.</p>
+									<p>Coupez les files d'attente grâce à la distorsion temporelle Prix : +125€ / offres.</p>
 								</div>
 								<div class="checkbox">
 									<input
@@ -129,7 +120,7 @@
 							</div>
 						</form>
 					</div>
-					<div class="modal acheteur">
+					<!-- <div class="modal acheteur">
 						<h1>Identité de l’aclhimistes (Acheteur)</h1>
 						<form>
 							<fieldset>
@@ -203,6 +194,7 @@
 										<li>test</li>
 										<li>test</li>
 									</ul>
+									
 								</div>
 							</div>
 						</form>
@@ -253,10 +245,11 @@
 										<li>test</li>
 										<li>test</li>
 									</ul>
+									
 								</div>
 							</div>
 						</form>
-					</div>
+					</div> -->
 					<div class="modal reacp">
 						<h1>Récapitulatif de la commande</h1>
 						<form>
@@ -325,7 +318,7 @@
 										<li>test</li>
 									</ul>
 								</div>
-								<h3 class="reacp-prix">Total : 520€</h3>
+								<h3 class="recap-prix">Total : 520€</h3>
 							</div>
 						</form>
 					</div>
@@ -437,6 +430,8 @@
 				</div>
 			</section>
 		</main>
-		<script src="./scripts/form_article.js"></script>
+		<script
+			type="module"
+			src="./scripts/form_article.js"></script>
 	</body>
 </html>
