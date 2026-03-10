@@ -1,0 +1,143 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+header ul {
+	display: flex;
+	list-style: none;
+	justify-content: space-around;
+	align-items: center;
+	font-size: 36px;
+	color: var(--Or-Aetherion);
+	font-family: "Cinzel Decorative";
+	font-weight: 700;
+}
+
+header li {
+	background: linear-gradient(180deg, #0e1a2b 0%, #0e112b 100%);
+	box-shadow: 0px 0px 20px 0px #d8a94466;
+	border-radius: 25px;
+	padding: 12px;
+	margin: 6px;
+}
+
+section {
+	background: linear-gradient(180deg, #0e1a2b 0%, #0e112b 100%);
+	box-shadow: 0px 0px 20px 0px #d8a94466;
+	border-radius: 25px;
+	padding: 15px;
+	margin-bottom: 15px;
+}
+
+.hero-carte {
+	text-align: center;
+	width: 60%;
+	background-color: #441a67;
+	margin: auto;
+	border-radius: 25px;
+	box-shadow: 0px 0px 20px 0px #d8a94466;
+}
+
+.hero-banniere h1 {
+	font-size: 36px;
+}
+
+.hero-banniere h2 {
+	/* color: #d9d9d9; */
+	font-size: 30px;
+	font-family: var(--sous-titre-font);
+	/* border-radius: 25px; */
+}
+
+.hero-boutons {
+	display: flex;
+	justify-content: center;
+	gap: 20px;
+	padding-bottom: 15px;
+	height: 46px;
+}
+
+.hero-boutons button {
+	border-radius: 25px;
+	border: none;
+	color: white;
+	padding: 15px;
+	padding-top: 8px;
+}
+
+.hero-boutons button:first-child {
+	background: radial-gradient(50% 50% at 50% 50%, #d8a944 34.13%, #a9713c 100%);
+}
+.hero-boutons button:last-child {
+	background: radial-gradient(50% 50% at 50% 50%, #15d498 0%, #0b6e4f 100%);
+}
+
+section.description-accueil {
+	grid-template-columns: 1fr auto;
+	display: grid;
+	align-items: center;
+	font-size: 36px;
+	font-family: var(--sous-titre-font);
+}
+
+.description-accueil img {
+	width: 352px;
+	border-radius: 25px;
+}
+
+h2 {
+	text-align: center;
+	margin: 15px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 300px 300px;
+	gap: 25px;
+}
+
+article {
+	background-color: gray;
+	border-radius: 25px;
+}
+
+.ligne {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-template-rows: 300px;
+	gap: 25px;
+}
+
+ul {
+	list-style: none;
+	color: cyan;
+}
+
+footer {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 70px;
+}
+
+footer div {
+	background: radial-gradient(50% 50% at 50% 50%, #2b4872 27.88%, #1b2d47 91.83%);
+	border-radius: 25px;
+	text-align: center;
+}
+
+footer li {
+	margin-top: 7px;
+}
+
+footer li:first-child {
+	font-size: 20px;
+	font-weight: 600;
+	margin-bottom: 10px;
+}
+
+section p {
+	color: cyan;
+}
