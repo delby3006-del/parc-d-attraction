@@ -1,5 +1,5 @@
 /**
- *
+ * Permet de récuperer des donnée d'un API
  * @param {String} url url de l'api
  * @returns Retourne les resultats ou l'erreur
  */

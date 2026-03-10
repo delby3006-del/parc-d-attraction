@@ -45,17 +45,7 @@ final class BilleterieController extends AbstractController
     }
 
 
-    #[Route('/{id}', name: 'get_one_offre', methods: ['GET'])]
-    public function getOne(EntityManagerInterface $em, $id): JsonResponse
-    {
 
-        $offre = $em->getRepository(OffreBilletterie::class)->find($id);
-
-        if (!$offre) {
-            return $this->json(['message' => "Data non trouvé"], JsonResponse::HTTP_NOT_FOUND);
-        }
-        return $this->json($offre, Response::HTTP_OK);
-    }
 
     #[Route('', name: 'create_offre', methods: ['POST'])]
     public function create(Request $req, EntityManagerInterface $em): JsonResponse
@@ -109,7 +99,11 @@ final class BilleterieController extends AbstractController
             return $this->json(['message' => 'Aucune commande trouvée'], Response::HTTP_NOT_FOUND);
         }
 
-        return $this->json($commandes, Response::HTTP_OK);
+        return $this->json($commandes, Response::HTTP_OK, [],  [
+            'circular_reference_handler' => function ($object) {
+                return null;
+            },
+        ]);
     }
 
     #[Route('/commande/{id}', name: 'get_one_commande', methods: ['GET'])]
@@ -171,6 +165,18 @@ final class BilleterieController extends AbstractController
         }
     }
 
+
+    #[Route('/{id}', name: 'get_one_offre', methods: ['GET'])]
+    public function getOne(EntityManagerInterface $em, $id): JsonResponse
+    {
+
+        $offre = $em->getRepository(OffreBilletterie::class)->find($id);
+
+        if (!$offre) {
+            return $this->json(['message' => "Data non trouvé"], JsonResponse::HTTP_NOT_FOUND);
+        }
+        return $this->json($offre, Response::HTTP_OK);
+    }
 
     #[Route('/commande/{id}', name: 'remove_commande', methods: ['DELETE'])]
     public function deleteCommande(int $id, EntityManagerInterface $em): JsonResponse
