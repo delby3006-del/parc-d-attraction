@@ -24,36 +24,41 @@
 					<div class="modal offres">
 						<h1>Choix du voyage</h1>
 						<section>
-							<div class="type-offres">
-								<label for="type-offres">Type du billet</label>
-								<select id="type-offres">
-									<option value="non-selectioner"></option>
-								</select>
-							</div>
-							<div class="nombre-offres">
-								<label for="nombre-offres">Nombre de billet</label>
-								<input
-									type="number"
-									name="nombre-offres"
-									id="nombre-offres" />
-							</div>
-							<div class="date">
-								<label for="date">date de Visite</label>
-								<input
-									type="date"
-									name="date"
-									id="date" />
-							</div>
-							<button
-								type="button"
-								disabled
-								id="suivant-offres">
-								Continuer
-							</button>
+							<fieldset>
+								<div class="type-offres">
+									<label for="type-offres">Type du billet</label>
+									<select id="type-offres">
+										<option value="non-selectioner"></option>
+									</select>
+								</div>
+								<div class="nombre-offres">
+									<label for="nombre-offres">Nombre de billet</label>
+									<input
+										type="number"
+										name="nombre-offres"
+										id="nombre-offres" />
+								</div>
+								<div class="date">
+									<label for="date">date de Visite</label>
+									<input
+										type="date"
+										name="date"
+										id="date" />
+								</div>
+								<button
+									type="button"
+									disabled
+									id="suivant-offres">
+									Continuer
+								</button>
+							</fieldset>
+
 							<div class="recapitulatif">
 								<h2>Recapitulatif</h2>
+
 								<div class="recap-data">
 									<span></span>
+									<div id="recap-date"></div>
 									<ul></ul>
 								</div>
 							</div>
@@ -97,6 +102,7 @@
 								<h2>Recapitulatif</h2>
 								<div class="recap-data">
 									<span></span>
+									<div class="recap-date"></div>
 									<ul></ul>
 								</div>
 							</div>
@@ -162,6 +168,7 @@
 							<div class="recapitulatif">
 								<h2>Recapitulatif</h2>
 								<div class="recap-data">
+									<div class="recap-date"></div>
 									<span></span>
 									<ul></ul>
 								</div>
@@ -282,7 +289,7 @@
 								<a
 									class="btn-retour"
 									id="retour-accueil"
-									href="/index.html">
+									href="index.html">
 									🏠 Retour à l'accueil
 								</a>
 							</div>

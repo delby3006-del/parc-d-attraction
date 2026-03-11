@@ -165,6 +165,11 @@ function actualiserRecap() {
 
 	let total = prixUnitaire * quantite;
 
+	// Affichage de la date
+	const dateVisite = new Date(state.commande.offres.date);
+	const optionsDate = { year: "numeric", month: "long", day: "numeric" };
+	const dateFormatee = dateVisite.toLocaleDateString("fr-FR", optionsDate);
+
 	// Gestion des extras
 	const extrasHTML = Object.entries(state.commande.extras)
 		.filter(([_, data]) => data.etat)
@@ -176,7 +181,8 @@ function actualiserRecap() {
 		.join("");
 
 	const contenuRecap = `
-        <span>${quantite} x ${offreSelectionnee.nom} (Prix Unitaire : ${prixUnitaire} €)</span>
+        <div>${quantite} x ${offreSelectionnee.nom} (Prix Unitaire : ${prixUnitaire} €)</div>
+		<div>Date de visite : ${dateFormatee}</div>
         <ul>${extrasHTML}</ul>
     `;
 
@@ -208,7 +214,7 @@ async function simulerPaiement(e) {
 			body: JSON.stringify(payload),
 		});
 
-		if (!reponse.ok) throw new Error(`Erreur HTTP: ${reponse.status}`);
+		if (!reponse.ok) throw new Error(reponse);
 
 		const resultat = await reponse.json();
 		console.log("Commande validée :", resultat);
@@ -246,7 +252,8 @@ async function simulerPaiement(e) {
 		$("recap-email").innerHTML = state.commande.acheteur.email;
 		Navigation.allerModale("fin");
 	} catch (erreur) {
-		console.error("Échec du paiement :", erreur);
+		//show the object error for debugging, but show a user-friendly message in the UI
+		console.error("Erreur lors de la validation de la commande :", erreur.message || erreur);
 		afficherErreur("Une erreur est survenue...");
 	}
 }

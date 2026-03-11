@@ -1,69 +1,41 @@
-/* ================================= */
-/* 1. RESET & BASE                   */
-/* ================================= */
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
-}
-
 body {
 	background: linear-gradient(to bottom, #0e1a2b, #0e112b);
-	color: #fff;
-	min-height: 100vh;
+}
+main {
+	padding: 50px;
+	max-width: 1240px;
+	width: 100%;
+	margin: auto;
+	box-sizing: border-box;
 }
 
 h2 {
 	margin: 0;
 }
 
-a {
-	text-decoration: none;
-	color: inherit;
-}
-
-/* ================================= */
-/* 2. LAYOUT                         */
-/* ================================= */
-main {
-	padding: 50px;
-	max-width: 1240px;
-	width: 100%;
-	margin: 0 auto;
-}
-
-/* ================================= */
-/* 3. BILLET / PASS SECTION           */
-/* ================================= */
 .billet-pass-section {
-	padding-inline: 50px;
+	padding-left: 50px;
+	padding-right: 50px;
 	display: flex;
 	justify-content: center;
-	gap: 80px;
+	gap: 150px;
 	margin-bottom: 50px;
 }
 
 .billet-pass-section h2 {
 	font-size: 3rem;
+	margin: 0;
 	font-weight: 900;
 }
 
 .billet-pass-section h3 {
 	font-size: 2rem;
+	margin: 0;
 	font-family: var(--main-font);
-	font-weight: 700;
 	margin-bottom: 38px;
+	font-weight: 700;
 }
 
-.billet-pass-section h3 span {
-	color: #ffd699;
-}
-
-/* ================================= */
-/* 4. CARD BASE (shared)             */
-/* ================================= */
 .pass,
 .billet {
 	flex: 1;
@@ -71,64 +43,12 @@ main {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	min-height: 350px;
-	border-radius: 22px;
+	height: 350px;
+	h3 span {
+		color: #ffd699;
+	}
 }
 
-.pass a,
-.billet a {
-	width: 100%;
-}
-
-/* ================================= */
-/* 5. BILLET CARD                    */
-/* ================================= */
-.billet {
-	background: radial-gradient(at center, #0c4d3a, transparent);
-	border: 1px solid var(--Vert-émeraude-féerique);
-	animation: glow-billet 5s ease-in-out infinite alternate;
-}
-
-/* Bouton vert pour billet */
-.billet button {
-	background-color: var(--Vert-émeraude-féerique, #2ecc71);
-	color: #fff;
-	border: none;
-	width: 100%;
-	cursor: pointer;
-	transition:
-		background-color 0.3s ease,
-		transform 0.25s ease,
-		box-shadow 0.3s ease;
-}
-
-.billet a button:hover {
-	background-color: #1e884a;
-	transform: translateY(-3px);
-}
-
-/* ================================= */
-/* 6. PASS CARD                      */
-/* ================================= */
-.pass {
-	background: radial-gradient(at center, transparent, #5f238f);
-	border: 2px solid var(--Or-Aetherion);
-	animation: glow-pass 5s ease-in-out infinite alternate;
-}
-
-.pass button {
-	background-color: var(--Violet-nexus);
-	color: var(--Or-Aetherion);
-}
-
-.pass a button:hover {
-	background: hsl(from var(--Violet-nexus) 255 s l);
-	cursor: pointer;
-}
-
-/* ================================= */
-/* 7. CARD DESCRIPTIONS              */
-/* ================================= */
 .billet-description,
 .pass-description {
 	flex: 1;
@@ -136,89 +56,99 @@ main {
 	align-self: flex-start;
 	padding-left: 10px;
 	line-height: 1.4;
+	img {
+		height: 23px;
+		margin-right: 0px;
+	}
 }
 
-.billet-description img,
-.pass-description img {
-	height: 23px;
-	margin-right: 0;
-}
-
-/* ================================= */
-/* 8. SHARED BUTTON                  */
-/* ================================= */
-article button {
-	border: none;
-	font-family: var(--titre-font);
-	font-weight: 700;
-	font-size: 1.375rem;
-	background-color: var(--Or-Aetherion);
-	color: var(--Bleu-nuit-magique);
+.billet {
+	/*
+* Created with https://www.css-gradient.com
+* Gradient link: https://www.css-gradient.com/?c1=0c4d3a&c2=0c513c00&gt=r&gd=dcc
+*/
+	background: #0c4d3a;
+	background: radial-gradient(at center, #0c4d3a, #0c513c00);
 	border-radius: 22px;
-	width: 100%;
-	height: 72px;
-	margin-top: 30px;
-	cursor: pointer;
-	transition:
-		background-color 0.3s ease,
-		transform 0.2s ease;
+	border: 1px solid var(--Vert-émeraude-féerique);
+	animation: glow-billet 5s ease-in-out infinite alternate;
 }
 
-article button:hover {
-	transform: translateY(-2px);
-}
-
-/* ================================= */
-/* 9. GLOW ANIMATIONS                */
-/* ================================= */
 @keyframes glow-billet {
 	from {
-		box-shadow: 0 0 10px 3px rgba(11, 110, 79, 1);
+		-webkit-box-shadow: 0px 0px 10px 3px rgba(11, 110, 79, 1);
+		-moz-box-shadow: 0px 0px 10px 3px rgba(11, 110, 79, 1);
+		box-shadow: 0px 0px 10px 3px rgba(11, 110, 79, 1);
 	}
 	to {
-		box-shadow: 8px 8px 80px 0 rgba(11, 110, 79, 1);
+		-webkit-box-shadow: 8px 8px 101px 0px rgba(11, 110, 79, 1);
+		-moz-box-shadow: 8px 8px 101px 0px rgba(11, 110, 79, 1);
+		box-shadow: 8px 8px 101px 0px rgba(11, 110, 79, 1);
 	}
 }
 
 @keyframes glow-pass {
 	from {
-		box-shadow: 0 0 10px 3px rgba(95, 35, 143, 0.7);
+		-webkit-box-shadow: 0px 0px 10px 3px rgba(95, 35, 143, 0.7);
+		-moz-box-shadow: 0px 0px 10px 3px rgba(95, 35, 143, 0.7);
+		box-shadow: 0px 0px 10px 3px rgba(95, 35, 143, 0.7);
 	}
 	to {
-		box-shadow: 0 0 80px 3px rgba(95, 35, 143, 0.7);
+		-webkit-box-shadow: 0px 0px 101px 3px rgba(95, 35, 143, 0.7);
+		-moz-box-shadow: 0px 0px 101px 3px rgba(95, 35, 143, 0.7);
+		box-shadow: 0px 0px 101px 3px rgba(95, 35, 143, 0.7);
+	}
+}
+article button {
+	border: none;
+	font-family: var(--titre-font);
+	font-weight: 700;
+	background-color: var(--Or-Aetherion);
+	font-size: 1.375rem;
+	color: var(--Bleu-nuit-magique);
+	border-radius: 22px;
+	width: 100%;
+	height: 72px;
+	margin-top: 30px;
+}
+
+.pass {
+	background: #5f238f;
+	background: radial-gradient(at center, #5e238f00, #5f238f);
+	border-radius: 22px;
+	border: 2px solid var(--Or-Aetherion);
+	animation: glow-pass 5s ease-in-out infinite alternate;
+	button {
+		background-color: var(--Violet-nexus);
+		color: var(--Or-Aetherion);
 	}
 }
 
-/* ================================= */
-/* 10. TABLE                         */
-/* ================================= */
 table {
-	margin: 0 auto;
+	margin: auto;
 	min-width: 70%;
-	color: #000;
+	color: black;
 	text-align: center;
-	border-collapse: separate;
 	border-spacing: 7px;
 }
 
 thead {
 	text-transform: capitalize;
 	font-family: var(--titre-font);
+	color: black;
 }
-
-th {
-	font-family: var(--titre-font);
-	padding: 10px;
-}
-
 th[scope="row"] {
 	color: var(--Violet-nexus);
 	background-color: #ffebcd;
 }
-
 th[scope="col"] {
+	padding-bottom: 10px;
+	padding-top: 10px;
 	color: var(--Vert-émeraude-féerique);
 	background-color: #ffd699;
+}
+th {
+	font-family: var(--titre-font);
 }
 
 td {
@@ -227,14 +157,13 @@ td {
 	font-size: 0.625rem;
 }
 
-/* ================================= */
-/* 11. FORM – PROGRESS BAR           */
-/* ================================= */
+/*********************Formulaire*********************/
 .progress-bar {
 	width: 100%;
 	background-color: #f3f3f3;
 	border-radius: 25px;
 	padding: 2px;
+
 	overflow: hidden;
 	margin-bottom: 30px;
 }
@@ -242,82 +171,168 @@ td {
 .progress {
 	height: 25px;
 	border-radius: 25px;
+
 	background-color: var(--Or-Aetherion);
 	width: 0;
 	transition: width 0.4s ease;
 }
-
-/* ================================= */
-/* 12. FORM – SLIDER / MODAL         */
-/* ================================= */
 .modal-container {
 	overflow: hidden;
 	width: 100%;
 }
-
 .slider {
 	display: flex;
 	flex-wrap: nowrap;
 	width: 100%;
 	transition: transform 0.5s ease-in-out;
 }
-
 .modal {
 	min-width: 100%;
+	box-sizing: border-box;
+	height: fit-content;
 	padding: 25px 50px;
 	border-radius: 25px;
 	background: linear-gradient(to bottom, #0e1a2b, #172942);
 }
 
-/* ================================= */
-/* 13. MODAL – ERROR STATE           */
-/* ================================= */
-.modal.erreur {
-	border: 3px solid #d84949;
-	background: linear-gradient(to bottom, #3c0f0f, #1c0a0a);
+.visiteur {
+	position: relative;
 }
 
-.modal.erreur h1 {
-	color: #f44; /* FIX: was truncated as #f[...] */
+.visiteur::after {
+	position: absolute;
+	text-align: center;
+	content: "En developpement";
+	font-size: 5rem;
+	font-weight: 900;
+	font-family: var(--main-font);
+	inset: 0;
+	height: 75%;
+	width: 100%;
+	background: radial-gradient(var(--Vert-émeraude-féerique), var(--Violet-nexus));
+	border-radius: 25px;
 }
 
-/* ================================= */
-/* 14. FORM – GRID LAYOUTS           */
-/* ================================= */
+.modal h1 {
+	font-family: "Cinzel Decorative", Arial, sans-serif;
+	margin: 0;
+}
+
+form {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	padding: 30px 20px;
+	border-top: 3px white solid;
+}
+
+.recapitulatif {
+	padding: 10px 25px;
+	width: max-content;
+	border-radius: 25px;
+	border: var(--Vert-émeraude-féerique) 2px solid;
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	background-color: hsl(from var(--Vert-émeraude-féerique) h 100% 75% / 15%);
+}
+
+.recap-data {
+	font-family: var(--sous-titre-font);
+}
+
+.reacp-prix {
+	text-align: center;
+	padding: 10px 20px;
+	font-size: 2rem;
+}
+
+fieldset {
+	border: none;
+}
+fieldset div {
+	padding: 25px 10px;
+}
+fieldset div:nth-child(1) {
+	border-top: none;
+}
+
+label {
+	font-family: var(--sous-titre-font);
+	font-size: 32px;
+}
+
+input,
+select {
+	padding: 12px 16px;
+	background-color: white;
+	font-family: var(--main-font);
+	border: none;
+	border-radius: 8px;
+	margin-left: 10px;
+	/* width: stretch; */
+}
+
+input::placeholder {
+	font-weight: bold;
+	opacity: 0.5;
+	color: gray;
+}
+optgroup {
+	font-family: var(--sous-titre-font);
+	font-size: 22px;
+}
+option {
+	font-size: 1rem;
+}
+
+button {
+	background-color: var(--Vert-émeraude-féerique);
+	border: 2px solid var(--Or-Aetherion);
+	font: var(--titre-font) white 36px;
+	font-size: 36px;
+	font-family: var(--main-font);
+	color: white;
+	width: 100%;
+	border-radius: 25px;
+	padding: 5px;
+	font-family: inherit;
+}
+
+button:disabled {
+	background-color: #ccc; /* Gray background */
+	color: #666; /* Gray text */
+	cursor: not-allowed; /* Change cursor to indicate disabled state */
+	opacity: 0.6; /* Make the button semi-transparent */
+}
+
 .grid-acheteur,
 .groupe-input,
 .grid-date-cvv {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
-	gap: 16px;
 }
-
 .grid-acheteur div,
 .input-label {
 	display: flex;
 	flex-direction: column;
 }
-
-/* ================================= */
-/* 15. FORM – CHECKBOX               */
-/* ================================= */
 .checkbox {
 	display: grid;
 	grid-template-areas:
 		"input label"
 		"p p";
-	grid-template-columns: auto 1fr;
-	gap: 8px 12px;
+	grid-template-columns: auto 1fr; /* input prend sa taille, label le reste */
+	gap: 8px 12px; /* espacement vertical / horizontal */
 	align-items: center;
 }
 
-.checkbox input[type="checkbox"] {
+/* Assigner chaque enfant à sa zone */
+input[type="checkbox"] {
 	grid-area: input;
 }
 
 .checkbox label {
 	grid-area: label;
-	color: #fff;
+	color: white;
 	cursor: pointer;
 }
 
@@ -326,9 +341,9 @@ td {
 	margin: 0;
 }
 
-/* ================================= */
-/* 16. MODAL – LOADING STATE         */
-/* ================================= */
+/* ===================== */
+/* MODAL CHARGEMENT      */
+/* ===================== */
 .chargement-content {
 	display: flex;
 	flex-direction: column;
@@ -339,17 +354,21 @@ td {
 	min-height: 300px;
 }
 
+/* Spinner animé */
 .spinner {
 	width: 60px;
 	height: 60px;
 	border: 5px solid rgba(255, 255, 255, 0.1);
-	border-top-color: var(--Vert-émeraude-féerique, #2ecc71);
+	border-top: 5px solid var(--Vert-émeraude-féerique, #2ecc71);
 	border-radius: 50%;
 	animation: spin 1s linear infinite;
 }
 
 @keyframes spin {
-	to {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
 		transform: rotate(360deg);
 	}
 }
@@ -377,9 +396,9 @@ td {
 	}
 }
 
-/* ================================= */
-/* 17. MODAL – CONFIRMATION          */
-/* ================================= */
+/* ===================== */
+/* MODAL CONFIRMATION    */
+/* ===================== */
 .confirmation-content {
 	display: flex;
 	flex-direction: column;
@@ -388,6 +407,7 @@ td {
 	padding: 2rem;
 }
 
+/* Icône check animée */
 .check-icon {
 	color: var(--Vert-émeraude-féerique, #2ecc71);
 	animation: pop 0.5s ease-out;
@@ -413,9 +433,7 @@ td {
 	text-align: center;
 }
 
-/* ================================= */
-/* 18. CONFIRMATION – DETAILS        */
-/* ================================= */
+/* Détails de la commande */
 .confirmation-details {
 	width: 100%;
 	max-width: 450px;
@@ -467,9 +485,7 @@ td {
 	color: var(--Vert-émeraude-féerique, #2ecc71);
 }
 
-/* ================================= */
-/* 19. CONFIRMATION – INFO & ACTIONS */
-/* ================================= */
+/* Infos email / billets */
 .confirmation-info {
 	width: 100%;
 	max-width: 450px;
@@ -485,6 +501,7 @@ td {
 	line-height: 1.5;
 }
 
+/* Boutons */
 .confirmation-actions {
 	display: flex;
 	gap: 1rem;
@@ -527,143 +544,7 @@ td {
 	transform: translateY(-2px);
 }
 
-/* ================================= */
-/* 20. RESPONSIVE                    */
-/* ================================= */
-
-/* Tablet */
-@media (max-width: 1024px) {
-	main {
-		padding: 30px;
-	}
-
-	.billet-pass-section {
-		gap: 40px;
-		padding-inline: 20px;
-	}
-
-	.billet-pass-section h2 {
-		font-size: 2.2rem;
-	}
-
-	.billet-pass-section h3 {
-		font-size: 1.5rem;
-		margin-bottom: 24px;
-	}
-
-	table {
-		min-width: 90%;
-	}
-
-	.modal {
-		padding: 20px 30px;
-	}
-}
-
-/* Mobile */
-@media (max-width: 768px) {
-	main {
-		padding: 20px 15px;
-	}
-
-	.billet-pass-section {
-		flex-direction: column;
-		gap: 30px;
-		padding-inline: 0;
-	}
-
-	.pass,
-	.billet {
-		min-height: auto;
-		padding: 20px;
-	}
-
-	.billet-pass-section h2 {
-		font-size: 1.8rem;
-	}
-
-	.billet-pass-section h3 {
-		font-size: 1.3rem;
-		margin-bottom: 16px;
-	}
-
-	article button {
-		height: 56px;
-		font-size: 1.1rem;
-		margin-top: 20px;
-	}
-
-	/* Table: horizontal scroll */
-	table {
-		min-width: 100%;
-		display: block;
-		overflow-x: auto;
-		-webkit-overflow-scrolling: touch;
-	}
-
-	/* Form grids → single column */
-	.grid-acheteur,
-	.groupe-input,
-	.grid-date-cvv {
-		grid-template-columns: 1fr;
-	}
-
-	.modal {
-		padding: 20px 16px;
-		border-radius: 16px;
-	}
-
-	.chargement-content {
-		padding: 2rem 1rem;
-		min-height: 200px;
-	}
-
-	.confirmation-content {
-		padding: 1.5rem 1rem;
-	}
-
-	.confirmation-details,
-	.confirmation-info {
-		padding: 1rem;
-	}
-
-	.confirmation-actions {
-		flex-direction: column;
-		width: 100%;
-	}
-
-	.btn-telecharger,
-	.btn-retour {
-		width: 100%;
-		text-align: center;
-	}
-}
-
-/* Small mobile */
-@media (max-width: 400px) {
-	.billet-pass-section h2 {
-		font-size: 1.5rem;
-	}
-
-	.progress {
-		height: 18px;
-	}
-
-	td {
-		padding: 8px;
-		font-size: 0.55rem;
-	}
-}
-
-/* ================================= */
-/* 21. ACCESSIBILITY                 */
-/* ================================= */
-@media (prefers-reduced-motion: reduce) {
-	*,
-	*::before,
-	*::after {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-	}
+.modal section {
+	display: grid;
+	grid-template-columns: 1fr auto;
 }
