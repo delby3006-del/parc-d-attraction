@@ -23,7 +23,7 @@
 				<div class="slider">
 					<div class="modal offres">
 						<h1>Choix du voyage</h1>
-						<form>
+						<section>
 							<fieldset>
 								<div class="type-offres">
 									<label for="type-offres">Type du billet</label>
@@ -46,28 +46,27 @@
 										id="date" />
 								</div>
 								<button
-									type="submit"
+									type="button"
 									disabled
 									id="suivant-offres">
 									Continuer
 								</button>
 							</fieldset>
+
 							<div class="recapitulatif">
 								<h2>Recapitulatif</h2>
+
 								<div class="recap-data">
-									<span>5 Billets 2 jours</span>
-									<ul>
-										<li>test</li>
-										<li>test</li>
-										<li>test</li>
-									</ul>
+									<span></span>
+									<div id="recap-date"></div>
+									<ul></ul>
 								</div>
 							</div>
-						</form>
+						</section>
 					</div>
 					<div class="modal extra">
 						<h1>Artefacts & Bonus</h1>
-						<form>
+						<section>
 							<fieldset>
 								<div class="checkbox">
 									<input
@@ -83,10 +82,7 @@
 										name="visite-guide"
 										id="visite-guide" />
 									<label for="visite-guide">Visite Guidée</label>
-									<p>
-										Découvrez les secrets cachés avec un guide expert. Prix : (Prix à définir ou inclus dans
-										le premium)
-									</p>
+									<p>Découvrez les secrets cachés avec un guide expert. Prix : 245€ / offres.</p>
 								</div>
 								<div class="checkbox">
 									<input
@@ -94,10 +90,10 @@
 										name="parking"
 										id="parking" />
 									<label for="parking">Parking</label>
-									<p>Payer vorte place de parking à l'avance. Prix :</p>
+									<p>Payer vorte place de parking à l'avance. Prix : 21</p>
 								</div>
 								<button
-									type="submit"
+									type="button"
 									id="suivant-extras">
 									Continuer
 								</button>
@@ -105,149 +101,16 @@
 							<div class="recapitulatif">
 								<h2>Recapitulatif</h2>
 								<div class="recap-data">
-									<span>5 Billets 2 jours</span>
-									<ul>
-										<li>Fastpass</li>
-										<li>Visite guidée</li>
-										<li>Parking</li>
-									</ul>
+									<span></span>
+									<div class="recap-date"></div>
+									<ul></ul>
 								</div>
 							</div>
-						</form>
+						</section>
 					</div>
-					<!-- <div class="modal acheteur">
-						<h1>Identité de l’aclhimistes (Acheteur)</h1>
-						<form>
-							<fieldset>
-								<div class="grid-acheteur">
-									<div>
-										<label for="nom">Nom</label>
-										<input
-											type="text"
-											name="nom"
-											id="nom" />
-									</div>
-									<div>
-										<label for="prenom">prenom</label>
-										<input
-											type="text"
-											name="prenom"
-											id="prenom" />
-									</div>
-									<div>
-										<label for="email">email</label>
-										<input
-											type="email"
-											name="email"
-											id="email" />
-									</div>
-									<div>
-										<label for="email-comfirm">Comfirmation de l'email</label>
-										<input
-											type="text"
-											name="email-comfirm"
-											id="email-comfirm" />
-									</div>
-									<div>
-										<label for="telephone">telephone</label>
-										<input
-											type="number"
-											name="telephone"
-											id="telephone" />
-									</div>
-									<div>
-										<label for="adresse">adresse de confirmation</label>
-										<input
-											type="text"
-											name="adresse"
-											id="adresse" />
-									</div>
-								</div>
-
-								<div class="checkbox">
-									<input
-										type="checkbox"
-										name="creer-compte"
-										id="creer-compte" />
-									<label for="creer-compte">
-										Créer mon compte Aetheria pour retrouver mes billets plus tard.
-									</label>
-								</div>
-								<button
-									type="submit"
-									disabled
-									id="suivant-acheteur">
-									Continuer
-								</button>
-							</fieldset>
-							<div class="recapitulatif">
-								<h2>Recapitulatif</h2>
-								<div class="recap-data">
-									<span>5 Billets 2 jours</span>
-									<ul>
-										<li>test</li>
-										<li>test</li>
-										<li>test</li>
-									</ul>
-									
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="modal visiteur">
-						<h1>Identité des Voyageurs</h1>
-						<form>
-							<fieldset>
-								<div class="checkbox">
-									<input
-										type="checkbox"
-										name="attribution-offres"
-										id="attribution-offres" />
-									<label for="attribution-offres">attribution des billets</label>
-								</div>
-								<article>
-									<h2>Bilet/Pass n°1</h2>
-									<div class="groupe-input">
-										<div class="input-label">
-											<label for="nom-visiteur-1">Nom</label>
-											<input
-												type="text"
-												name="nom-visiteur-1"
-												id="nom-visiteur-1" />
-										</div>
-										<div class="input-label">
-											<label for="prenom-visiteur-1">prenom</label>
-											<input
-												type="text"
-												name="prenom-visiteur-1"
-												id="prenom-visiteur-1" />
-										</div>
-									</div>
-								</article>
-								<button
-									type="submit"
-									disabled
-									id="suivant-visiteur">
-									Continuer
-								</button>
-							</fieldset>
-							<div class="recapitulatif">
-								<h2>Recapitulatif</h2>
-								<div class="recap-data">
-									<span>5 Billets 2 jours</span>
-									<ul>
-										<li>test</li>
-										<li>test</li>
-										<li>test</li>
-									</ul>
-									
-								</div>
-							</div>
-						</form>
-					</div> -->
 					<div class="modal reacp">
 						<h1>Récapitulatif de la commande</h1>
-						<form>
+						<section>
 							<fieldset>
 								<div>
 									<label for="code-promo">code Promo</label>
@@ -297,25 +160,21 @@
 										id="newsletter" />
 								</div>
 								<button
-									type="submit"
-									disabled
-									id="valider">
+									type="button"
+									id="valider-paiement">
 									Valider la commande
 								</button>
 							</fieldset>
 							<div class="recapitulatif">
 								<h2>Recapitulatif</h2>
 								<div class="recap-data">
-									<span>5 Billets 2 jours</span>
-									<ul>
-										<li>test</li>
-										<li>test</li>
-										<li>test</li>
-									</ul>
+									<div class="recap-date"></div>
+									<span></span>
+									<ul></ul>
 								</div>
 								<h3 class="recap-prix">Total : 520€</h3>
 							</div>
-						</form>
+						</section>
 					</div>
 					<div class="modal chargement-paiement">
 						<h1>Paiement en cours</h1>
@@ -323,6 +182,24 @@
 							<div class="spinner"></div>
 							<p class="chargement-text">Transmission de votre offrande au Royaume...</p>
 							<p class="chargement-subtext">Veuillez ne pas fermer cette page</p>
+						</div>
+					</div>
+					<div class="modal erreur">
+						<h1>Oups…</h1>
+						<p class="erreur-message">
+							Une erreur est survenue lors du traitement de votre commande. Veuillez réessayer.
+						</p>
+						<div class="erreur-actions">
+							<button
+								type="button"
+								id="erreur-reessayer">
+								Réessayer
+							</button>
+							<button
+								type="button"
+								id="erreur-retour">
+								Retour à l'accueil
+							</button>
 						</div>
 					</div>
 					<div class="modal fin">
@@ -409,16 +286,12 @@
 							</div>
 
 							<div class="confirmation-actions">
-								<button
-									class="btn-telecharger"
-									id="telecharger-billets">
-									📥 Télécharger mes billets
-								</button>
-								<button
+								<a
 									class="btn-retour"
-									id="retour-accueil">
+									id="retour-accueil"
+									href="index.html">
 									🏠 Retour à l'accueil
-								</button>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -427,6 +300,136 @@
 		</main>
 		<script
 			type="module"
-			src="./scripts/form_article.js"></script>
+			src="./scripts/commandes.js"></script>
 	</body>
 </html>
+<!-- <div class="modal acheteur">
+						<h1>Identité de l’aclhimistes (Acheteur)</h1>
+						<form>
+							<fieldset>
+								<div class="grid-acheteur">
+									<div>
+										<label for="nom">Nom</label>
+										<input
+											type="text"
+											name="nom"
+											id="nom" />
+									</div>
+									<div>
+										<label for="prenom">prenom</label>
+										<input
+											type="text"
+											name="prenom"
+											id="prenom" />
+									</div>
+									<div>
+										<label for="email">email</label>
+										<input
+											type="email"
+											name="email"
+											id="email" />
+									</div>
+									<div>
+										<label for="email-comfirm">Comfirmation de l'email</label>
+										<input
+											type="text"
+											name="email-comfirm"
+											id="email-comfirm" />
+									</div>
+									<div>
+										<label for="telephone">telephone</label>
+										<input
+											type="number"
+											name="telephone"
+											id="telephone" />
+									</div>
+									<div>
+										<label for="adresse">adresse de confirmation</label>
+										<input
+											type="text"
+											name="adresse"
+											id="adresse" />
+									</div>
+								</div>
+
+								<div class="checkbox">
+									<input
+										type="checkbox"
+										name="creer-compte"
+										id="creer-compte" />
+									<label for="creer-compte">
+										Créer mon compte Aetheria pour retrouver mes billets plus tard.
+									</label>
+								</div>
+								<button
+									type="button"
+									disabled
+									id="suivant-acheteur">
+									Continuer
+								</button>
+							</fieldset>
+							<div class="recapitulatif">
+								<h2>Recapitulatif</h2>
+								<div class="recap-data">
+									<span>5 Billets 2 jours</span>
+									<ul>
+										<li>test</li>
+										<li>test</li>
+										<li>test</li>
+									</ul>
+									
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal visiteur">
+						<h1>Identité des Voyageurs</h1>
+						<form>
+							<fieldset>
+								<div class="checkbox">
+									<input
+										type="checkbox"
+										name="attribution-offres"
+										id="attribution-offres" />
+									<label for="attribution-offres">attribution des billets</label>
+								</div>
+								<article>
+									<h2>Bilet/Pass n°1</h2>
+									<div class="groupe-input">
+										<div class="input-label">
+											<label for="nom-visiteur-1">Nom</label>
+											<input
+												type="text"
+												name="nom-visiteur-1"
+												id="nom-visiteur-1" />
+										</div>
+										<div class="input-label">
+											<label for="prenom-visiteur-1">prenom</label>
+											<input
+												type="text"
+												name="prenom-visiteur-1"
+												id="prenom-visiteur-1" />
+										</div>
+									</div>
+								</article>
+								<button
+									type="button"
+									disabled
+									id="suivant-visiteur">
+									Continuer
+								</button>
+							</fieldset>
+							<div class="recapitulatif">
+								<h2>Recapitulatif</h2>
+								<div class="recap-data">
+									<span>5 Billets 2 jours</span>
+									<ul>
+										<li>test</li>
+										<li>test</li>
+										<li>test</li>
+									</ul>
+									
+								</div>
+							</div>
+						</form>
+					</div> -->
