@@ -10,10 +10,18 @@
 	--Vert-émeraude-féerique: #0b6e4f;
 	--Or-Aetherion: #d8a944;
 	--Violet-nexus: #441a67;
-	margin: 0;
+	--Radiant-vert: radial-gradient(at center, #0c4d3a, #0c513c00);
+	--Radiant-violet: radial-gradient(at center, #441a67, #441a6700);
+	--Radiant-bronze: radial-gradient(at center, #a9713c, #a9713c00);
+	--Radiant-or: radial-gradient(at center, #d8a944, #d8a94400);
+
+	--linear-bleu: linear-gradient(to bottom, #0e1a2b, #172942);
+	--linear-bleu-arriere-plan: linear-gradient(to bottom, #0e1a2b, #0e112b);
+
+	--ombre-dorée: 0px 0px 20px 0px rgba(216, 169, 68, 0.5);
 }
 body {
-	font-family: var(--main-font);
+	font-family: var(--linear-bleu2);
 	background-color: var(--Bleu-nuit-magique);
 	color: antiquewhite;
 }

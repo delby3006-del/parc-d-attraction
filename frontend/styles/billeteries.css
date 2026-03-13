@@ -63,10 +63,6 @@ h2 {
 }
 
 .billet {
-	/*
-* Created with https://www.css-gradient.com
-* Gradient link: https://www.css-gradient.com/?c1=0c4d3a&c2=0c513c00&gt=r&gd=dcc
-*/
 	background: #0c4d3a;
 	background: radial-gradient(at center, #0c4d3a, #0c513c00);
 	border-radius: 22px;

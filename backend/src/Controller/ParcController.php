@@ -26,11 +26,11 @@ final class ParcController extends AbstractController
 
 
     #[Route('/attractions/{id}', name: 'one_attractions', methods: ['GET'])]
-    public function getOneAttraction(EntityManagerInterface $em, int $id):JsonResponse
+    public function getOneAttraction(EntityManagerInterface $em, int $id): JsonResponse
     {
         $attraction = $em->getRepository(Attraction::class)->find($id);
-        
-        if(!$attraction){
+
+        if (!$attraction) {
             return $this->json(['message' => "Attraction non trouvée"], 404);
         }
         return $this->json($attraction);
@@ -52,7 +52,7 @@ final class ParcController extends AbstractController
         $attraction->setY($data['y'] ?? null);
 
         $zone = $em->getRepository(Zone::class)->find($data['id_zone']);
-        if(!$zone){
+        if (!$zone) {
             return $this->json(['message' => "Zone non trouvée"], 404);
         }
         $attraction->setZone($zone);
@@ -63,12 +63,12 @@ final class ParcController extends AbstractController
         return $this->json(['message' => "Votre nouvelle attraction à bien été enregistrée"], Response::HTTP_CREATED);
     }
 
-    
+
     #[Route('/attractions/{id}', name: 'remove_attractions', methods: ['DELETE'])]
-    public function deleteAttraction(int $id, EntityManagerInterface $em) : JsonResponse
+    public function deleteAttraction(int $id, EntityManagerInterface $em): JsonResponse
     {
         $attraction = $em->getRepository(Attraction::class)->find($id);
-        if(!$attraction){
+        if (!$attraction) {
             return $this->json(['message' => 'Attraction non trouvée'], 404);
         }
 
@@ -76,23 +76,26 @@ final class ParcController extends AbstractController
         $em->flush();
 
         return $this->json(['message' => 'Attraction supprimée'], Response::HTTP_OK);
-
     }
 
 
     #[Route('/zone', name: 'parc_zone', methods: ['GET'])]
-    public function getZone(EntityManagerInterface $em) : JsonResponse
+    public function getZone(EntityManagerInterface $em): JsonResponse
     {
         $zones = $em->getRepository(Zone::class)->findAll();
-        return $this->json($zones, Response::HTTP_OK);
+        return $this->json($zones, Response::HTTP_OK, [], [
+            'circular_reference_handler' => function ($object) {
+                return null;
+            },
+        ]);
     }
 
     #[Route('/zone/{id}', name: 'one_zone', methods: ['GET'])]
-    public function getOneZone(EntityManagerInterface $em, int $id) : JsonResponse
+    public function getOneZone(EntityManagerInterface $em, int $id): JsonResponse
     {
         $zone = $em->getRepository(Zone::class)->find($id);
-        
-        if(!$zone){
+
+        if (!$zone) {
             return $this->json(['message' => 'Zone non trouvée'], 404);
         }
 
@@ -100,7 +103,7 @@ final class ParcController extends AbstractController
     }
 
     #[Route('/zone', name: 'create_zone', methods: ['POST'])]
-    public function createZone(EntityManagerInterface $em, Request $req) : JsonResponse
+    public function createZone(EntityManagerInterface $em, Request $req): JsonResponse
     {
         $data = json_decode($req->getContent(), true);
 
@@ -115,11 +118,11 @@ final class ParcController extends AbstractController
     }
 
     #[Route('/zone/{id}', name: 'remove_zone', methods: ['DELETE'])]
-    public function deleteZone(int $id, EntityManagerInterface $em) :JsonResponse
+    public function deleteZone(int $id, EntityManagerInterface $em): JsonResponse
     {
         $zone = $em->getRepository(Zone::class)->find($id);
-        
-        if(!$zone){
+
+        if (!$zone) {
             return $this->json(['message' => "Cette zone n'existe pas"], 404);
         }
 
@@ -138,11 +141,11 @@ final class ParcController extends AbstractController
     }
 
     #[Route('/point-interet/{id}', name: 'one_point_interet', methods: ['GET'])]
-    public function getOnePointInteret(int $id, EntityManagerInterface $em,) : JsonResponse
+    public function getOnePointInteret(int $id, EntityManagerInterface $em,): JsonResponse
     {
         $pointInteret = $em->getRepository(PointInteret::class)->find($id);
 
-        if(!$pointInteret){
+        if (!$pointInteret) {
             return $this->json(['message' => "Point Interet non trouvé"], 404);
         }
 
@@ -150,10 +153,10 @@ final class ParcController extends AbstractController
     }
 
     #[Route('/point-interet', name: 'create_point_interet', methods: ['POST'])]
-    public function createPointInteret(Request $req, EntityManagerInterface $em) :JsonResponse
+    public function createPointInteret(Request $req, EntityManagerInterface $em): JsonResponse
     {
         $data = json_decode($req->getContent(), true);
-        if(!$data){
+        if (!$data) {
             return $this->json(['message' => "Data non trouvé"], 404);
         }
 
@@ -163,11 +166,11 @@ final class ParcController extends AbstractController
         $pointInteret->setDescription($data['description'] ?? null);
         $pointInteret->setX($data['x'] ?? null);
         $pointInteret->setY($data['y'] ?? null);
-        if(isset($data['id_zone'])){
-           $zone = $em->getRepository(Zone::class)->find($data['id_zone']);
-           if (!$zone) {
+        if (isset($data['id_zone'])) {
+            $zone = $em->getRepository(Zone::class)->find($data['id_zone']);
+            if (!$zone) {
                 return $this->json(['message' => 'Zone non trouvée'], 404);
-            }   
+            }
             $pointInteret->setZone($zone);
         }
 
@@ -178,10 +181,10 @@ final class ParcController extends AbstractController
     }
 
     #[Route('/point-interet/{id}', name: 'remove_point_interet', methods: ['DELETE'])]
-    public function deletePointInteret(int $id, EntityManagerInterface $em) :JsonResponse
+    public function deletePointInteret(int $id, EntityManagerInterface $em): JsonResponse
     {
         $pointInteret = $em->getRepository(PointInteret::class)->find($id);
-        if(!$pointInteret){
+        if (!$pointInteret) {
             return $this->json(['message' => "Ce point interet n'existe pas"], 404);
         }
 
