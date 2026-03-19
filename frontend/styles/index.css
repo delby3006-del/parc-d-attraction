@@ -116,27 +116,7 @@ ul {
 	color: cyan;
 }
 
-footer {
-	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 70px;
-}
 
-footer div {
-	background: radial-gradient(50% 50% at 50% 50%, #2b4872 27.88%, #1b2d47 91.83%);
-	border-radius: 25px;
-	text-align: center;
-}
-
-footer li {
-	margin-top: 7px;
-}
-
-footer li:first-child {
-	font-size: 20px;
-	font-weight: 600;
-	margin-bottom: 10px;
-}
 
 section p {
 	color: cyan;

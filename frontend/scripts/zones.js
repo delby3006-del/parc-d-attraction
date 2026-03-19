@@ -4,7 +4,6 @@ const classNames = ["or", "vert", "violet", "bronze"];
 
 async function init() {
 	const zones = await getData("http://localhost:81/api/parc/zone/");
-	console.log(zones);
 	displayZones(zones);
 	const points = await getData("http://localhost:81/api/parc/point-interet/");
 	displayPoints(points);
@@ -34,16 +33,16 @@ function displayZones(zones) {
 
 function displayPoints(points) {
 	const carte = document.querySelector(".carte-section");
-	console.log(points);
+	const pointsContainer = document.getElementById("points-container");
 	points.forEach((point) => {
 		const pointElement = document.createElement("span");
 		pointElement.classList.add("point");
-		pointElement.classList.add(classNames[point.zone.id % classNames.length]); // Add a class based on the zone ID
-
-		pointElement.style.left = `${point.x}px`;
-		pointElement.style.top = `${point.y}px`;
+		const pourcentagex = point.x / carte.offsetWidth;
+		const pourcentagey = point.y / carte.offsetHeight;
+		pointElement.style.left = `${pourcentagex * 100}%`;
+		pointElement.style.top = `${pourcentagey * 100}%`;
 		pointElement.setAttribute("data-text", point.nom);
-		carte.appendChild(pointElement);
+		pointsContainer.appendChild(pointElement);
 	});
 }
 
