@@ -14,7 +14,7 @@ services:
         networks:
             - local
         volumes:
-            - /var/lib/mysql
+            - ./mysql:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL80_ROOT_PASSWORD}
     backend-symfony-apache:

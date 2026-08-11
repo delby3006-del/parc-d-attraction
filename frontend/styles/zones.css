@@ -1,0 +1,132 @@
+main {
+	padding: 50px;
+	max-width: 1240px;
+	width: 100%;
+	margin: auto;
+	box-sizing: border-box;
+}
+
+.carte-section,
+.zones-section {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	margin-top: 50px;
+	padding: 10px;
+	background-color: blue;
+	border-radius: 25px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	background: var(--linear-bleu);
+	box-shadow: var(--ombre-dorée);
+	position: relative;
+}
+
+.carte-section img {
+	border-radius: 15px;
+	width: 100%;
+}
+
+#points-container {
+	position: relative;
+}
+
+#zones-container {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	width: 100%;
+	max-width: 1200px;
+}
+
+.zone {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	align-items: center;
+	gap: 20px;
+	background-color: white;
+	border-radius: 25px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	padding: 20px;
+	height: 600px;
+}
+.zone:nth-child(odd) {
+	direction: rtl;
+}
+.zone img {
+	border-radius: 25px;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.or {
+	background: var(--Radiant-or);
+}
+.violet {
+	background: var(--Radiant-violet);
+}
+.bronze {
+	background: var(--Radiant-bronze);
+}
+.vert {
+	background: var(--Radiant-vert);
+}
+
+.infos h2 {
+	text-align: center;
+	font-size: 28px;
+	color: var(--Or-Aetherion);
+}
+.infos p {
+	font-size: 18px;
+	line-height: 1.5;
+	text-align: left;
+}
+
+.point {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	background-color: var(--Or-Aetherion);
+	border-radius: 50%;
+}
+
+.point:hover {
+	transform: scale(1.5);
+	transition: transform 0.3s ease;
+	box-shadow: var(--ombre-dorée);
+}
+.point::after {
+	content: attr(data-text);
+	position: absolute;
+	font:
+		14px Arial,
+		sans-serif;
+	top: -30px;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: black;
+	color: white;
+	padding: 5px 10px;
+	border-radius: 5px;
+	white-space: nowrap;
+	opacity: 0;
+	transition: opacity 0.3s ease;
+}
+.point:hover::after {
+	opacity: 0.8;
+}
+
+.point::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 70%;
+	height: 70%;
+	background-color: black;
+	border-radius: 50%;
+	opacity: 1;
+}
